@@ -1,6 +1,4 @@
 #!/bin/sh
-line1=""
-line2=""
 num_of_args=2
 check_args()
 {
@@ -31,6 +29,12 @@ if check_args $#;then
 		read -r line2 < $loop
 		if [ $line1 = $line2 ];then
 			echo "$loop is definetly is a duplicate of file $1"
+	sz1=`stat -c %s $1`
+	for loop in `ls`
+	do
+		sz2=`stat -c %s $loop`
+		if [ $sz1 = $sz2 ];then
+			echo "Might be a duplicate"
 		fi
 	done
 fi
